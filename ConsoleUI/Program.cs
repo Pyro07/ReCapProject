@@ -28,7 +28,6 @@ namespace ConsoleUI
         private static void RentACar()
         {
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
-
             var result = rentalManager.Add(new Rental { CustomerId = 2, CarId = 2 }).Message;
             Console.WriteLine(result);
         }

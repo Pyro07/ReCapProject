@@ -14,13 +14,13 @@ namespace ConsoleUI
             //GetCars();
             //GetBrands();
             //AddColor();
-            //GetCarDetails();
+            GetCarDetails();
             //AddUsers();
             //AddCustomers();
             //GetUsers();
             //GetCustomers();
 
-            RentACar();
+            //RentACar();
 
             Console.ReadKey();
         }
@@ -37,7 +37,7 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
             foreach (var item in carManager.GetCarDetails().Data)
             {
-                Console.WriteLine($"Marka : {item.BrandName}\nModel : {item.CarName}\nRenk : {item.ColorName}\nGünlük Ücret : {item.DailyPrice}");
+                Console.WriteLine($"Marka : {item.BrandName}\nModel : {item.CarName}\nRenk : {item.ColorName}\nGünlük Ücret : {item.DailyPrice}\n");
             }
         }
 

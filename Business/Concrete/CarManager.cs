@@ -1,10 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace Business.Concrete
 {
@@ -17,18 +22,39 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(CarValidator), Priority = 1)]
         public IResult Add(Car car)
         {
-            if (car.ModelName.Length >= 2 && car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-                return new SuccessResult();
-            }
-            else
-            {
-                //throw new Exception("Model ismi 2 karakterden fazla ve günlük fiyat 0'dan fazla olmalýdýr.");
-                return new ErrorResult();
-            }
+            //if (car.ModelName.Length >= 2 && car.DailyPrice > 0)
+            //{
+            //    _carDal.Add(car);
+            //    return new SuccessResult();
+            //}
+            //else
+            //{
+            //    //throw new Exception("Model ismi 2 karakterden fazla ve günlük fiyat 0'dan fazla olmalýdýr.");
+            //    return new ErrorResult();
+            //}
+
+            //CarValidator validator = new CarValidator();
+            //ValidationResult result = validator.Validate(car);
+
+            //if (!result.IsValid)
+            //{
+            //    throw new ValidationException(result.Errors);
+            //}
+            //var context = new ValidationContext<Car>(car);
+            //CarValidator carValidator = new CarValidator();
+            //var result = carValidator.Validate(context);
+            //if (!result.IsValid)
+            //{
+            //    throw new ValidationException(result.Errors);
+            //}
+
+            //ValidationTool.Validate(new CarValidator(), car);
+
+            _carDal.Add(car);
+            return new SuccessResult();
         }
 
         public IResult Delete(Car car)

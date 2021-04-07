@@ -59,21 +59,21 @@ namespace ConsoleUI
             }
         }
 
-        private static void AddUsers()
-        {
-            UserManager userManager = new UserManager(new EfUserDal());
-            List<User> users = new List<User>
-            {
-                new User { FirstName = "Ali", LastName = "Aydın", Email = "abc@abc.com", Password = "12345" },
-                new User { FirstName = "Hüseyin", LastName = "Yılmaz", Email = "abc1@abc.com", Password = "12345" },
-                new User { FirstName = "Mehmet", LastName = "Güner", Email = "abc2@abc.com", Password = "12345" },
-            };
+        //private static void AddUsers()
+        //{
+        //    UserManager userManager = new UserManager(new EfUserDal());
+        //    List<User> users = new List<User>
+        //    {
+        //        new User { FirstName = "Ali", LastName = "Aydın", Email = "abc@abc.com", Password = "12345" },
+        //        new User { FirstName = "Hüseyin", LastName = "Yılmaz", Email = "abc1@abc.com", Password = "12345" },
+        //        new User { FirstName = "Mehmet", LastName = "Güner", Email = "abc2@abc.com", Password = "12345" },
+        //    };
 
-            foreach (var item in users)
-            {
-                userManager.Add(item);
-            }
-        }
+        //    foreach (var item in users)
+        //    {
+        //        userManager.Add(item);
+        //    }
+        //}
 
         private static void AddCustomers()
         {

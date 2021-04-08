@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
@@ -30,20 +32,21 @@ namespace Business.Concrete
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
-            var userToCheck = _userService.GetByEmail(userForLoginDto.Email);
+            var userToCheck = _userService.GetByEmail(userForLoginDto.Email).Data;
             if (userToCheck == null)
             {
                 return new ErrorDataResult<User>("Kullanıcı bulunamadı");
             }
 
-            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.Data.PasswordHash, 
-                userToCheck.Data.PasswordSalt))
+            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, 
+                userToCheck.PasswordSalt))
             {
                 return new ErrorDataResult<User>("Parola hatalı");
             }
-            return new SuccessDataResult<User>(userToCheck.Data, "Giriş başarılı");
+            return new SuccessDataResult<User>(userToCheck, "Giriş başarılı");
         }
 
+        [ValidationAspect(typeof(UserRegisterValidator))]
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
         {
             byte[] passwordHash, passwordSalt;
@@ -63,7 +66,7 @@ namespace Business.Concrete
 
         public IResult UserExists(string email)
         {
-            if (_userService.GetByEmail(email) != null)
+            if (_userService.GetByEmail(email).Data != null)
             {
                 return new ErrorResult("Kullanıcı mevcut");
             }

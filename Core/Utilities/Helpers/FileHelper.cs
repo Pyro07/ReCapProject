@@ -7,7 +7,7 @@ using System.IO;
 using System.Text;
 using Core.Constants;
 
-namespace Core.Helpers
+namespace Core.Utilities.Helpers
 {
     public static class FileHelper
     {
